@@ -28,6 +28,11 @@ export const translations = {
     removeImage: "Remove image",
     flowerLanguageLabel: "Language of Flowers",
     blessingLabel: "Blessing",
+    contactUs: "Contact Us",
+    emailUs: "Email Us",
+    backHome: "Back to Home",
+    copyEmail: "Copy Email",
+    emailCopied: "Copied!",
   },
   zh: {
     appName: "花卉和谐 AI",
@@ -56,5 +61,10 @@ export const translations = {
     removeImage: "移除图片",
     flowerLanguageLabel: "花语",
     blessingLabel: "祝福寄语",
+    contactUs: "联系我们",
+    emailUs: "联系邮箱",
+    backHome: "返回首页",
+    copyEmail: "复制邮箱",
+    emailCopied: "已复制！",
   }
 };
