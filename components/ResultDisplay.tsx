@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FloralAnalysisResponse, Suggestion } from '../types';
-import { Check, Palette, Sparkles, Leaf, Loader2, Image as ImageIcon, Heart, Quote, X, Maximize2 } from 'lucide-react';
+import { Check, Palette, Leaf, Loader2, Image as ImageIcon, Heart, Quote, X, Maximize2, RefreshCw, ArrowLeft, Sparkles } from 'lucide-react';
 import { generateFloralImage } from '../services/geminiService';
 import { useSettings } from '../contexts/SettingsContext';
 
 interface ResultDisplayProps {
   data: FloralAnalysisResponse;
+  onReset: () => void;
+  onRegenerate: () => void;
 }
 
 interface SuggestionCardProps {
@@ -186,18 +188,39 @@ const ImageModal: React.FC<{ url: string | null; onClose: () => void }> = ({ url
   );
 };
 
-const ResultDisplay: React.FC<ResultDisplayProps> = ({ data }) => {
+const ResultDisplay: React.FC<ResultDisplayProps> = ({ data, onReset, onRegenerate }) => {
   const { t } = useSettings();
   const [zoomedUrl, setZoomedUrl] = useState<string | null>(null);
   
   return (
-    <div className="w-full max-w-6xl mx-auto py-12 px-4 animate-fadeIn">
+    <div className="w-full max-w-6xl mx-auto pt-2 pb-12 px-4 animate-fadeIn">
       
       {/* Analysis Section */}
       <div className="mb-12 text-center max-w-3xl mx-auto">
+        
+        {/* Label Re-added Above Buttons */}
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-50 dark:bg-rose-900/30 text-rose-800 dark:text-rose-300 text-sm font-medium mb-6">
           <Sparkles className="w-4 h-4" />
           {t.aiAnalysisLabel}
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-3 mb-8">
+           <button 
+              onClick={onReset}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100 transition-colors text-sm font-medium shadow-sm group"
+            >
+              <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+              {t.startNewDesign}
+            </button>
+            
+            <button
+              onClick={onRegenerate}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-900/30 text-rose-700 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition-colors text-sm font-medium shadow-sm group"
+            >
+              <RefreshCw className="w-4 h-4 transition-transform group-hover:rotate-180" />
+              {t.regenerate}
+            </button>
         </div>
         
         <h2 className="text-3xl md:text-4xl font-serif font-bold text-stone-800 dark:text-stone-100 mb-6">

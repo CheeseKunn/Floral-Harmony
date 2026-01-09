@@ -11,9 +11,11 @@ const AppContent: React.FC = () => {
   const [status, setStatus] = useState<LoadingState>(LoadingState.IDLE);
   const [result, setResult] = useState<FloralAnalysisResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [lastInput, setLastInput] = useState<UserInput | null>(null);
   const { t, language } = useSettings();
 
   const handleSubmit = async (input: UserInput) => {
+    setLastInput(input);
     setStatus(LoadingState.LOADING);
     setErrorMsg(null);
     setResult(null);
@@ -30,10 +32,17 @@ const AppContent: React.FC = () => {
     }
   };
 
+  const handleRegenerate = () => {
+    if (lastInput) {
+      handleSubmit(lastInput);
+    }
+  };
+
   const handleReset = () => {
     setStatus(LoadingState.IDLE);
     setResult(null);
     setErrorMsg(null);
+    setLastInput(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -44,7 +53,7 @@ const AppContent: React.FC = () => {
       <main className="container mx-auto px-4">
         
         {status !== LoadingState.SUCCESS && (
-          <div className={`transition-opacity duration-500 ${status === LoadingState.LOADING ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
+          <div className={`mt-8 transition-opacity duration-500 ${status === LoadingState.LOADING ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}>
              <InputSection onSubmit={handleSubmit} isLoading={status === LoadingState.LOADING} />
           </div>
         )}
@@ -67,14 +76,12 @@ const AppContent: React.FC = () => {
 
         {/* Results */}
         {status === LoadingState.SUCCESS && result && (
-          <div className="mt-8">
-            <button 
-              onClick={handleReset}
-              className="mx-auto block mb-8 px-6 py-2 rounded-full bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-stone-600 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 hover:text-stone-900 dark:hover:text-stone-100 transition-colors text-sm font-medium shadow-sm"
-            >
-              {t.startNewDesign}
-            </button>
-            <ResultDisplay data={result} />
+          <div className="mt-2">
+            <ResultDisplay 
+              data={result} 
+              onReset={handleReset} 
+              onRegenerate={handleRegenerate}
+            />
           </div>
         )}
 

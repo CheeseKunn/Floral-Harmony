@@ -9,7 +9,7 @@ const Header: React.FC = () => {
   const toggleLanguage = () => setLanguage(language === 'en' ? 'zh' : 'en');
 
   return (
-    <header className="w-full py-8 px-4 flex flex-col items-center justify-center text-center relative">
+    <header className="w-full py-4 px-4 flex flex-col items-center justify-center text-center relative">
       
       {/* Settings Controls - Top Right */}
       <div className="absolute top-4 right-4 flex items-center gap-2">
