@@ -6,9 +6,6 @@
     <title>绘镜AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-      /* Shim process for browser environment */
-      window.process = { env: {} };
-      
       tailwind.config = {
         darkMode: 'class',
         theme: {
@@ -45,7 +42,7 @@
       /* Interactive elements - Maintain the wand but hint at interactivity */
       a, button, input, textarea, select, .cursor-pointer {
          /* Same wand for consistency, relies on :active for feedback */
-         cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none'%3E%3C!-- Handle --%3E%3Cpath d='M19 19L9 9' stroke='%2357534e' stroke-width='2' stroke-linecap='round'/%3E%3C!-- Star Tip --%3E%3Cpath d='M5 1L6.5 3.5L9 5L6.5 6.5L5 9L3.5 6.5L1 5L3.5 3.5L5 1Z' fill='%23fff1f2' stroke='%23e11d48' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 5 5, pointer;
+         cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none'%3E%3C!-- Handle --%3E%3Cpath d='M19 19L9 9' stroke='%2357534e' stroke-width='2' stroke-linecap='round'/%3E%3C!-- Handle --%3E%3Cpath d='M19 19L9 9' stroke='%2357534e' stroke-width='2' stroke-linecap='round'/%3E%3C!-- Star Tip --%3E%3Cpath d='M5 1L6.5 3.5L9 5L6.5 6.5L5 9L3.5 6.5L1 5L3.5 3.5L5 1Z' fill='%23fff1f2' stroke='%23e11d48' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 5 5, pointer;
       }
 
       /* Active State (Clicking): The star fills with color and sparkles appear */

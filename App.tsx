@@ -5,7 +5,7 @@ import ResultDisplay from './components/ResultDisplay';
 import PetalBackground from './components/PetalBackground';
 import { UserInput, FloralAnalysisResponse, LoadingState } from './types';
 import { analyzeFloralRequest } from './services/geminiService';
-import { Loader2, AlertCircle, Mail, ArrowLeft, Copy, Check, Key, Flower2 } from 'lucide-react';
+import { Loader2, AlertCircle, Mail, ArrowLeft, Copy, Check } from 'lucide-react';
 import { SettingsProvider, useSettings } from './contexts/SettingsContext';
 
 type ViewState = 'HOME' | 'CONTACT';
@@ -68,75 +68,13 @@ const ContactView: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   );
 };
 
-// Component to prompt for API Key
-const ApiKeyInput: React.FC = () => {
-  const { t, setApiKey } = useSettings();
-  const [inputVal, setInputVal] = useState('');
-  const [error, setError] = useState(false);
-
-  const handleSave = () => {
-    if (inputVal.trim().length < 10) {
-      setError(true);
-      return;
-    }
-    setApiKey(inputVal.trim());
-  };
-
-  return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative z-10">
-      <div className="max-w-md w-full bg-white dark:bg-stone-900 rounded-3xl shadow-2xl p-8 text-center border border-stone-100 dark:border-stone-800 animate-fadeIn">
-        <div className="w-16 h-16 bg-rose-100 dark:bg-rose-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
-          <Flower2 className="w-8 h-8 text-rose-500" />
-        </div>
-        <h1 className="text-3xl font-serif font-bold text-stone-800 dark:text-stone-100 mb-2">{t.welcomeTitle}</h1>
-        <p className="text-stone-500 dark:text-stone-400 mb-8 leading-relaxed text-sm">{t.welcomeSubtitle}</p>
-
-        <div className="space-y-4">
-          <div className="relative">
-            <Key className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-stone-400" />
-            <input 
-              type="password" 
-              placeholder={t.enterApiKey}
-              value={inputVal}
-              onChange={(e) => {
-                setInputVal(e.target.value);
-                setError(false);
-              }}
-              className={`w-full pl-12 pr-4 py-3 rounded-xl border-2 ${error ? 'border-red-300 focus:border-red-500' : 'border-stone-200 dark:border-stone-700 focus:border-rose-400'} bg-stone-50 dark:bg-stone-950 outline-none transition-all dark:text-white`}
-            />
-          </div>
-          {error && <p className="text-red-500 text-xs text-left pl-2">{t.apiKeyRequired}</p>}
-          
-          <button 
-            onClick={handleSave}
-            className="w-full py-3 bg-stone-900 dark:bg-stone-100 text-white dark:text-stone-900 font-bold rounded-xl hover:bg-rose-600 dark:hover:bg-rose-400 transition-colors"
-          >
-            {t.startApp}
-          </button>
-        </div>
-        
-        <div className="mt-6 pt-6 border-t border-stone-100 dark:border-stone-800">
-          <a 
-            href="https://aistudio.google.com/app/apikey" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-xs text-stone-400 hover:text-rose-500 underline transition-colors"
-          >
-            {t.getApiKey}
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 const AppContent: React.FC = () => {
   const [view, setView] = useState<ViewState>('HOME');
   const [status, setStatus] = useState<LoadingState>(LoadingState.IDLE);
   const [result, setResult] = useState<FloralAnalysisResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [lastInput, setLastInput] = useState<UserInput | null>(null);
-  const { t, language, apiKey, setApiKey } = useSettings();
+  const { t, language } = useSettings();
 
   const handleSubmit = async (input: UserInput) => {
     setLastInput(input);
@@ -145,8 +83,7 @@ const AppContent: React.FC = () => {
     setResult(null);
 
     try {
-      // Pass the current language and apiKey to the service
-      const data = await analyzeFloralRequest(input.text, input.image, language, apiKey);
+      const data = await analyzeFloralRequest(input.text, input.image, language);
       setResult(data);
       setStatus(LoadingState.SUCCESS);
     } catch (error) {
@@ -179,17 +116,6 @@ const AppContent: React.FC = () => {
     setView('HOME');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  // If no API Key is set, show the setup screen
-  if (!apiKey) {
-    return (
-      <div className="min-h-screen bg-stone-50 dark:bg-stone-950 transition-colors duration-300 relative overflow-hidden">
-        <PetalBackground />
-        <Header />
-        <ApiKeyInput />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-stone-50 dark:bg-stone-950 pb-20 transition-colors duration-300 flex flex-col relative overflow-x-hidden">
@@ -250,13 +176,6 @@ const AppContent: React.FC = () => {
               {t.contactUs}
             </button>
           )}
-          <button 
-            onClick={() => setApiKey('')}
-            className="flex items-center gap-1.5 text-stone-500 hover:text-rose-500 dark:text-stone-500 dark:hover:text-rose-400 transition-colors font-medium text-xs uppercase tracking-wide"
-          >
-            <Key className="w-3.5 h-3.5" />
-            {t.changeKey}
-          </button>
         </div>
         
         <p>&copy; {new Date().getFullYear()} {t.footer}</p>

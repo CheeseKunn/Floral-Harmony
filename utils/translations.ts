@@ -33,14 +33,6 @@ export const translations = {
     backHome: "Back to Home",
     copyEmail: "Copy Email",
     emailCopied: "Copied!",
-    // API Key Related
-    welcomeTitle: "Welcome to Floral Harmony",
-    welcomeSubtitle: "To get started, please enter your Google Gemini API Key. Your key is stored locally in your browser and is never sent to our servers.",
-    enterApiKey: "Enter Gemini API Key",
-    getApiKey: "Get a free API Key here",
-    startApp: "Enter the Garden",
-    apiKeyRequired: "API Key is required to proceed",
-    changeKey: "Change API Key"
   },
   zh: {
     appName: "绘镜AI",
@@ -74,13 +66,5 @@ export const translations = {
     backHome: "返回首页",
     copyEmail: "复制邮箱",
     emailCopied: "已复制！",
-    // API Key Related
-    welcomeTitle: "欢迎来到 绘镜AI",
-    welcomeSubtitle: "要开始使用，请输入您的 Google Gemini API 密钥。您的密钥仅存储在本地浏览器中，绝不会发送到我们的服务器。",
-    enterApiKey: "输入 Gemini API 密钥",
-    getApiKey: "在此处免费获取 API 密钥",
-    startApp: "进入花语花园",
-    apiKeyRequired: "需要 API 密钥才能继续",
-    changeKey: "更换密钥"
   }
 };
