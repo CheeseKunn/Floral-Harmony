@@ -35,7 +35,7 @@ export const translations = {
     emailCopied: "Copied!",
   },
   zh: {
-    appName: "花卉和谐 AI",
+    appName: "绘镜AI",
     appTagline: "为每一个时刻寻找完美的绽放。",
     yourRequirement: "您的需求",
     placeholderText: "描述您的场合（例如，“浪漫的晚餐”，“送给生病朋友的鲜艳花束”）或寻求具体建议...",
@@ -54,7 +54,7 @@ export const translations = {
     regenerate: "不满意，重新生成",
     designingArrangement: "正在设计您的花艺方案...",
     generating3D: "正在生成 3D 视图...",
-    footer: "花卉和谐 AI。由 Google Gemini 提供支持。",
+    footer: "绘镜AI。由 Google Gemini 提供支持。",
     errorGeneric: "无法生成推荐。请检查您的网络连接或尝试其他图片。",
     errorNoResponse: "AI 无响应",
     uploadPreview: "上传预览",
