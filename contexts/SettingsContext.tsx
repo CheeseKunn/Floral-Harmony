@@ -9,6 +9,8 @@ interface SettingsContextType {
   theme: Theme;
   setTheme: (theme: Theme) => void;
   t: typeof translations['en'];
+  apiKey: string;
+  setApiKey: (key: string) => void;
 }
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);
@@ -26,6 +28,10 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   });
 
+  const [apiKey, setApiKeyState] = useState<string>(() => {
+    return localStorage.getItem('gemini_api_key') || '';
+  });
+
   useEffect(() => {
     localStorage.setItem('language', language);
   }, [language]);
@@ -40,6 +46,11 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
     }
   }, [theme]);
 
+  const setApiKey = (key: string) => {
+    setApiKeyState(key);
+    localStorage.setItem('gemini_api_key', key);
+  };
+
   const setLanguage = (lang: Language) => setLanguageState(lang);
   const setTheme = (t: Theme) => setThemeState(t);
 
@@ -49,6 +60,8 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }
     theme,
     setTheme,
     t: translations[language],
+    apiKey,
+    setApiKey
   };
 
   return (

@@ -68,13 +68,14 @@ const fileToBase64 = (file: File): Promise<string> => {
 export const analyzeFloralRequest = async (
   text: string,
   image: File | null,
-  language: Language
+  language: Language,
+  apiKey: string
 ): Promise<FloralAnalysisResponse> => {
-  if (!process.env.API_KEY) {
+  if (!apiKey) {
     throw new Error("API Key is missing.");
   }
 
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: apiKey });
 
   const parts: any[] = [];
 
@@ -128,13 +129,13 @@ export const analyzeFloralRequest = async (
   }
 };
 
-export const generateFloralImage = async (suggestion: Suggestion): Promise<string | null> => {
-  if (!process.env.API_KEY) {
+export const generateFloralImage = async (suggestion: Suggestion, apiKey: string): Promise<string | null> => {
+  if (!apiKey) {
     console.error("API Key is missing for image generation.");
     return null;
   }
 
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: apiKey });
 
   // Construct a detailed prompt for the image generation model
   // Explicitly enforcing NO TEXT in the output image

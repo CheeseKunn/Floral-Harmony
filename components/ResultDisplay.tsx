@@ -17,7 +17,7 @@ interface SuggestionCardProps {
 }
 
 const SuggestionCard: React.FC<SuggestionCardProps> = ({ suggestion, index, onZoom }) => {
-  const { t } = useSettings();
+  const { t, apiKey } = useSettings();
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [loadingImage, setLoadingImage] = useState(true);
 
@@ -26,7 +26,7 @@ const SuggestionCard: React.FC<SuggestionCardProps> = ({ suggestion, index, onZo
     const fetchImage = async () => {
       setLoadingImage(true);
       try {
-        const url = await generateFloralImage(suggestion);
+        const url = await generateFloralImage(suggestion, apiKey);
         if (isMounted && url) {
           setImageUrl(url);
         }
@@ -44,7 +44,7 @@ const SuggestionCard: React.FC<SuggestionCardProps> = ({ suggestion, index, onZo
     return () => {
       isMounted = false;
     };
-  }, [suggestion, index]);
+  }, [suggestion, index, apiKey]);
 
   return (
     <div className="bg-white dark:bg-stone-900 rounded-2xl overflow-hidden border border-stone-100 dark:border-stone-800 shadow-lg shadow-stone-200/50 dark:shadow-stone-950/50 flex flex-col h-full transform transition-all duration-500 hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-stone-950/80">

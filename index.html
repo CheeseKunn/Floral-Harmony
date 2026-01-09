@@ -6,6 +6,9 @@
     <title>绘镜AI</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+      /* Shim process for browser environment */
+      window.process = { env: {} };
+      
       tailwind.config = {
         darkMode: 'class',
         theme: {
