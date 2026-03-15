@@ -1,0 +1,2 @@
+# Floral-Harmony
+An intelligent floral assistant that analyzes flower images and user requirements to suggest perfect floral arrangements and buying guides.
