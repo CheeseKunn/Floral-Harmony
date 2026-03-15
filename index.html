@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>绘镜AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Lato', 'sans-serif'],
+              serif: ['Playfair Display', 'serif'],
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            },
+            animation: {
+              fadeIn: 'fadeIn 0.5s ease-out',
+            }
+          }
+        }
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+      /* Custom Wand Cursor - Refined Star Wand Design */
+      body {
+        font-family: 'Lato', sans-serif;
+        /* 
+           Normal State: A sleek wand with a 4-point star tip. 
+           Hotspot is set to 5 5 (center of the star) to ensure precise clicking.
+        */
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none'%3E%3C!-- Handle --%3E%3Cpath d='M19 19L9 9' stroke='%2357534e' stroke-width='2' stroke-linecap='round'/%3E%3C!-- Star Tip --%3E%3Cpath d='M5 1L6.5 3.5L9 5L6.5 6.5L5 9L3.5 6.5L1 5L3.5 3.5L5 1Z' fill='%23fff1f2' stroke='%23e11d48' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 5 5, auto;
+      }
+      
+      /* Interactive elements - Maintain the wand but hint at interactivity */
+      a, button, input, textarea, select, .cursor-pointer {
+         /* Same wand for consistency, relies on :active for feedback */
+         cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none'%3E%3C!-- Handle --%3E%3Cpath d='M19 19L9 9' stroke='%2357534e' stroke-width='2' stroke-linecap='round'/%3E%3C!-- Handle --%3E%3Cpath d='M19 19L9 9' stroke='%2357534e' stroke-width='2' stroke-linecap='round'/%3E%3C!-- Star Tip --%3E%3Cpath d='M5 1L6.5 3.5L9 5L6.5 6.5L5 9L3.5 6.5L1 5L3.5 3.5L5 1Z' fill='%23fff1f2' stroke='%23e11d48' stroke-width='1.5' stroke-linejoin='round'/%3E%3C/svg%3E") 5 5, pointer;
+      }
+
+      /* Active State (Clicking): The star fills with color and sparkles appear */
+      body:active, a:active, button:active, input:active {
+        cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 24 24' fill='none'%3E%3C!-- Handle --%3E%3Cpath d='M19 19L9 9' stroke='%2357534e' stroke-width='2' stroke-linecap='round'/%3E%3C!-- Star Tip (Filled) --%3E%3Cpath d='M5 1L6.5 3.5L9 5L6.5 6.5L5 9L3.5 6.5L1 5L3.5 3.5L5 1Z' fill='%23fb7185' stroke='%23be123c' stroke-width='1.5' stroke-linejoin='round'/%3E%3C!-- Sparkles --%3E%3Cpath d='M12 2L13 1M11 9L12 10M2 11L1 12' stroke='%23f43f5e' stroke-width='1.5'/%3E%3C/svg%3E") 5 5, auto;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Playfair Display', serif;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3"
+  }
+}
+</script>
+</head>
+  <body class="bg-stone-50 text-stone-800 dark:bg-stone-950 dark:text-stone-100 antialiased selection:bg-rose-200 selection:text-rose-900 transition-colors duration-300">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
